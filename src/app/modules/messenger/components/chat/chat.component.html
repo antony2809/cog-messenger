@@ -1,0 +1,34 @@
+<ng-container *ngIf="currentRoom$ | async; let room">
+    <div class="container" fxLayout="column" fxLayoutAlign="none" fxFill>
+        <mat-toolbar fxFlex="64px">
+            <span>{{room.title}} {{room.id}}</span>
+            <button mat-icon-button mat-button [matMenuTriggerFor]="menu" aria-label="Menu icon">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-list #messengerList fxFlex fxLayout="column">
+            <mat-list-item *ngFor="let message of room.messages; trackBy:message.id">
+                <img matListAvatar [src]="message.sender.avatarUrl" [alt]="message.sender.username">
+                <h3 matLine> {{message.sender.username}} </h3>
+                <p matLine>
+                    <span> {{message.description}} </span>
+                </p>
+            </mat-list-item>
+        </mat-list>
+        <div id="input-toolbar">
+            <mat-form-field>
+                <textarea [formControl]="message" (keydown.enter)="sendMessage($event)" matInput cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                    placeholder="Write your message here"></textarea>
+            </mat-form-field>
+            <button (click)="sendMessage()" mat-icon-button
+                aria-label="Example icon button with a vertical three dot icon">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div>
+    </div>
+</ng-container>
+
+<mat-menu #menu="matMenu">
+    <button (click)="removeRoom()" mat-menu-item>Remove room</button>
+</mat-menu>

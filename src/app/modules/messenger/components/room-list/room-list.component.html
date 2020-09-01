@@ -1,0 +1,28 @@
+<div class="container">
+    <ng-container *ngIf="user$ | async; let user">
+        <mat-toolbar>
+            <div class="wrapper">
+                <img [src]="user.avatarUrl" [alt]="user.username">
+                <span>{{user.username}}</span>
+            </div>
+            <button mat-icon-button mat-button [matMenuTriggerFor]="menu" aria-label="Menu icon">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </mat-toolbar>
+    </ng-container>
+    <mat-list>
+        <ng-container *ngIf="rooms$ | async; let rooms">
+            <mat-list-item (click)="selectRoom(room)" *ngFor="let room of rooms">
+                <img matListAvatar [src]="room.avatarUrl" [alt]="room.title">
+                <h3 matLine> {{room.title}} </h3>
+                <p matLine>
+                    <span> {{room.lastMessage}}</span>
+                </p>
+            </mat-list-item>
+        </ng-container>
+    </mat-list>
+</div>
+<mat-menu #menu="matMenu">
+    <button (click)="newRoom()" mat-menu-item>New Room</button>
+    <button (click)="logout()" mat-menu-item>Logout</button>
+</mat-menu>

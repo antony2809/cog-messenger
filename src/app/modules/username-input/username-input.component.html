@@ -1,0 +1,20 @@
+<mat-grid-list cols="1" rowHeight="100%">
+    <mat-grid-tile>
+        <mat-card>
+            <mat-card-title>Random Chat Generator</mat-card-title>
+            <mat-card-subtitle>Welcome to RCG. Introduce your username to start talking with random users online. Your
+                username should have at least a length of 3.
+            </mat-card-subtitle>
+            <mat-card-content>
+                <form [formGroup]="form" (ngSubmit)="login()">
+                    <mat-form-field>
+                        <mat-label>Username</mat-label>
+                        <input formControlName="username" matInput placeholder="mr.donald">
+                        <mat-error *ngIf="username.invalid">Please introduce an username</mat-error>
+                    </mat-form-field>
+                    <button [disabled]="form.invalid" mat-raised-button color="primary">Go!</button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
