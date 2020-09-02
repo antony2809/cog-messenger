@@ -23,6 +23,7 @@ export class RoomListComponent implements OnInit {
   ];
   user$: Observable<User>;
   rooms$: Observable<Room[]>;
+  currentRoom$: Observable<Room>;
 
   constructor(
     private userService: UserService,
@@ -43,10 +44,15 @@ export class RoomListComponent implements OnInit {
     this.router.navigate(['username-picker']);
   }
 
+  trackById(_: number, room: Room): string {
+    return room.id;
+  }
+
   ngOnInit(): void {
     this.user$ = this.userService.user;
     this.rooms$ = this.roomService.rooms.pipe(
       map((rooms) => rooms.sort((a, b) => b.updated - a.updated))
     );
+    this.currentRoom$ = this.roomService.currentRoom;
   }
 }

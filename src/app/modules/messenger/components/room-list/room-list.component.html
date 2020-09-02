@@ -12,7 +12,8 @@
     </ng-container>
     <mat-list>
         <ng-container *ngIf="rooms$ | async; let rooms">
-            <mat-list-item (click)="selectRoom(room)" *ngFor="let room of rooms">
+            <mat-list-item [class.selected]="(currentRoom$ |async)?.id === room.id" (click)="selectRoom(room)"
+                *ngFor="let room of rooms; trackBy:trackById">
                 <img matListAvatar [src]="room.avatarUrl" [alt]="room.title">
                 <h3 matLine> {{room.title}} </h3>
                 <p matLine>

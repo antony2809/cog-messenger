@@ -1,7 +1,7 @@
 <ng-container *ngIf="currentRoom$ | async; let room">
     <div class="container" fxLayout="column" fxLayoutAlign="none" fxFill>
         <mat-toolbar fxFlex="64px">
-            <span>{{room.title}} {{room.id}}</span>
+            <span>{{room.title}}</span>
             <button mat-icon-button mat-button [matMenuTriggerFor]="menu" aria-label="Menu icon">
                 <mat-icon>more_vert</mat-icon>
             </button>
