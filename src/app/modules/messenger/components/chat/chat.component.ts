@@ -5,6 +5,8 @@ import {
   NgZone,
   ElementRef,
   AfterViewInit,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { RoomService } from 'src/app/modules/shared/services/room.service';
 import { Room } from 'src/app/models/room';
@@ -14,6 +16,7 @@ import { take } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { v4 } from 'uuid';
 import { UserService } from 'src/app/modules/shared/services/user.service';
+import { ResponsiveService } from 'src/app/modules/shared/services/responsive.service';
 
 @Component({
   selector: 'app-chat',
@@ -23,13 +26,15 @@ import { UserService } from 'src/app/modules/shared/services/user.service';
 export class ChatComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messengerList') messengerList: ElementRef<HTMLDivElement>;
+  @Output() toggle = new EventEmitter();
   currentRoom$: Observable<Room>;
   message = new FormControl('', Validators.required);
 
   constructor(
     private roomService: RoomService,
     private ngZone: NgZone,
-    private userService: UserService
+    private userService: UserService,
+    private responsive: ResponsiveService
   ) {}
 
   triggerResize(): void {
@@ -67,6 +72,10 @@ export class ChatComponent implements OnInit {
         '_elementRef'
       ].nativeElement.scrollHeight;
     }, 80);
+  }
+
+  toggleSidebar(): void {
+    this.toggle.emit();
   }
 
   ngOnInit(): void {

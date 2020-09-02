@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { UserService } from 'src/app/modules/shared/services/user.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -14,6 +20,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomListComponent implements OnInit {
+  @Output() selected = new EventEmitter();
   typesOfShoes: string[] = [
     'Boots',
     'Clogs',
@@ -33,6 +40,7 @@ export class RoomListComponent implements OnInit {
 
   selectRoom(room: Room): void {
     this.roomService.selectRoom(room);
+    this.selected.emit();
   }
 
   newRoom(): void {

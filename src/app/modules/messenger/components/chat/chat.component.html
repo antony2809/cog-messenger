@@ -1,7 +1,14 @@
 <ng-container *ngIf="currentRoom$ | async; let room">
     <div class="container" fxLayout="column" fxLayoutAlign="none" fxFill>
         <mat-toolbar fxFlex="64px">
-            <span>{{room.title}}</span>
+            <div fxFlex fxLayoutGap="8px" fxLayoutAlign="start center">
+                <ng-container>
+                    <button (click)="toggleSidebar()" mat-icon-button color="accent" aria-label="Sidebar toggler">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                </ng-container>
+                <span>{{room.title}}</span>
+            </div>
             <button mat-icon-button mat-button [matMenuTriggerFor]="menu" aria-label="Menu icon">
                 <mat-icon>more_vert</mat-icon>
             </button>
